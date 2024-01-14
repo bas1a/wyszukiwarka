@@ -1,0 +1,36 @@
+article{
+    color: black;
+}
+body {
+    background-image: url('../images/pic2.png');
+    /* Ścieżka do obrazu */
+    background-size: cover;
+    /* Pokrywa cały dostępny obszar */
+    background-position: center;
+    /* Wyśrodkowuje obraz w obszarze */
+    background-repeat: no-repeat;
+    /* Zapobiega powtarzaniu się obrazu */
+    background-attachment: fixed;
+    /* Tło jest nieruchome podczas przewijania */
+
+    color: #7d486b;
+
+    font-family: 'Josefin Sans', serif;
+}
+
+.bi-music-note-beamed, .bi-film, .bi-gem, .bi-tv, .bi-person-arms-up {
+    font-size: 50px;
+    color: aliceblue;
+}
+
+.icons, .artists, .filters {
+    background: linear-gradient(to top, rgba(255, 40, 40, 0), rgba(255, 0, 0, 0.5));
+    /* Półprzezroczysta czarna nakładka */
+}
+
+@media (max-width: 767px) {
+    body {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
