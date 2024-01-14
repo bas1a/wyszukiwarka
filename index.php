@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wyszukiwarka kulturalna</title>
 
-    <meta name="description" content="KONCETRY, TEATR, BALET, OPERA" /> <!-- możesz wydłużyć ten opis -->
+    <meta name="description" content="KONCETRY, TEATR, BALET, OPERA" />
     <meta name="keywords" content="wyszukiwarka koncertów, koncerty, wydarzenia kulturalne, teatr, BALET, OPERA" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -65,9 +65,7 @@
                 </div>
             </div>
         </main>
-        <footer>
-            <p>Projekt i wykonanie Barbara Sławińska &copy; 2024</p>
-        </footer>
+        <?php include 'app/views/footer.php'; ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 

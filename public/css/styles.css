@@ -23,6 +23,10 @@ body {
     color: aliceblue;
 }
 
+.footer{
+    color: white;
+}
+
 .icons, .artists, .filters {
     background: linear-gradient(to top, rgba(255, 40, 40, 0), rgba(255, 0, 0, 0.5));
     /* Półprzezroczysta czarna nakładka */
