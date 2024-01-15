@@ -1,10 +1,10 @@
 <?php
 class Database
 {
-    private $host = "localhost";
-    private $db_name = "wyszukiwarka";
-    private $username = "root";
-    private $password = "";
+    private $host = "h22.seohost.pl";
+    private $db_name = "srv40917_wyszukiwarka";
+    private $username = "srv40917_wyszukiwarka";
+    private $password = "basia123";
     public $conn;
 
     public function getConnection()
