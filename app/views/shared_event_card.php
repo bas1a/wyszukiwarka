@@ -1,4 +1,4 @@
-<div class="col-md-6 px-3">
+<div class="col-sm-6 px-3">
     <?php while ($row = $events->fetch(PDO::FETCH_ASSOC)) : ?>
         <div class="card mb-4">
             <div class="row g-0">

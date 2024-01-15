@@ -17,14 +17,19 @@
 
 <body>
     <header>
-
+        <?php include 'shared_navbar.php'; ?>
+        <h1 class="text-center">Zaloguj się</h1>
     </header>
     <main>
-        <?php include 'shared_filter_events.php'; ?>
-        <div class="col-md-6 px-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <?php include 'shared_filter_events.php'; ?>
+                <div class="col-sm-6 px-3">
 
+                </div>
+                <?php include 'shared_artists.php'; ?>
+            </div>
         </div>
-        <?php include 'shared_artists.php'; ?>
     </main>
     <?php include 'shared_footer.php'; ?>
 </body>

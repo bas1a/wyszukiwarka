@@ -24,7 +24,7 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <?php include 'shared_filter_events.php'; ?>
-                <div class="col-md-6 px-3">
+                <div class="col-sm-6 px-3">
                     <form action="../controllers/event_add_controller.php" method="post">
                         <div class="form-group">
                             <label>Nazwa</label>

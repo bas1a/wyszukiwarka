@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Wyszukiwarka kulturalna</title>
+    <title>Zarejestruj się </title>
 
     <meta name="description" content="KONCETRY, TEATR, BALET, OPERA" />
     <meta name="keywords" content="wyszukiwarka koncertów, koncerty, wydarzenia kulturalne, teatr, BALET, OPERA" />
@@ -17,10 +17,19 @@
 
 <body>
     <header>
-
+        <?php include 'shared_navbar.php'; ?>
+        <h1 class="text-center">Zarejestruj się</h1>
     </header>
     <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <?php include 'shared_filter_events.php'; ?>
+                <div class="col-sm-6 px-3">
 
+                </div>
+                <?php include 'shared_artists.php'; ?>
+            </div>
+        </div>
     </main>
     <?php include 'shared_footer.php'; ?>
 </body>

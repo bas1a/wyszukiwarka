@@ -123,4 +123,17 @@ class Events
 
         return false;
     }
+
+    public function search($searchTerm)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE :searchTerm OR description LIKE :searchTerm";
+
+        $stmt = $this->conn->prepare($query);
+        $searchTerm = "%{$searchTerm}%";
+        $stmt->bindParam(":searchTerm", $searchTerm);
+   
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
