@@ -55,11 +55,11 @@
                             <label>Typ</label>
                             <select name="type" class="form-control" required>
                                 <option value="">Wybierz typ wydarzenia</option>
-                                <option value="koncert">Koncert</option>
-                                <option value="teatr">Teatr</option>
-                                <option value="balet">Balet</option>
-                                <option value="opera">Opera</option>
-                                <option value="kino">Kino</option>
+                                <option value="Koncert">Koncert</option>
+                                <option value="Teatr">Teatr</option>
+                                <option value="Balet">Balet</option>
+                                <option value="Opera">Opera</option>
+                                <option value="Kino">Kino</option>
                             </select>
                         </div>
 

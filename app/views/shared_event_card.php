@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-warning m-1">Edytuj</button>
+                <a href='view_update_event.php?id=<?php echo $row['id']; ?>' class='btn btn-warning m-1'>Edytuj</a>
                 <a href='#' data-id='<?php echo $row['id']; ?>' class='btn btn-danger delete-btn'>Usuń</a>
             </div>
         </div>

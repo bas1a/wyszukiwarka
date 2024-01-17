@@ -49,6 +49,26 @@ class Event
         return $stmt;
     }
 
+    public function readOne($id)
+    {
+        // Zapytanie do bazy danych
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id = :id LIMIT 0,1";
+
+        // Przygotowanie zapytania
+        $stmt = $this->conn->prepare($query);
+
+        // Powiązanie ID wydarzenia z parametrem zapytania
+        $stmt->bindParam(':id', $id);
+
+        // Wykonanie zapytania
+        $stmt->execute();
+
+        // Pobranie wiersza z bazy danych
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+
 
     // metoda do utworzenia nowego wydarzenia
     function create()
@@ -85,23 +105,35 @@ class Event
 
 
     // metoda do aktualizacji wydarzenia
-    function update()
+    function update($id, $name, $location, $date, $description, $image_url, $type)
     {
-        // zapytanie do aktualizacji rekordu
-        $query = "UPDATE " . $this->table_name . " SET name=:name, location=:location, date=:date, description=:description, type=:type, user_id=:user_id WHERE id=:id";
+        $query = "UPDATE " . $this->table_name . " 
+              SET name = :name, 
+                  location = :location, 
+                  date = :date, 
+                  description = :description, 
+                  image_url = :image_url, 
+                  type = :type 
+              WHERE id = :id";
 
-        // przygotowanie zapytania
         $stmt = $this->conn->prepare($query);
 
-        // oczyszczenie i powiązanie wartości (jak w metodzie create)
+        // Powiązanie wartości
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":location", $location);
+        $stmt->bindParam(":date", $date);
+        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":image_url", $image_url);
+        $stmt->bindParam(":type", $type);
 
-        // wykonanie zapytania
         if ($stmt->execute()) {
             return true;
         }
 
         return false;
     }
+
 
     // metoda do usuwania wydarzenia
     function delete($id)
