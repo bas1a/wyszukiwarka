@@ -1,6 +1,6 @@
 <?php
 
-class Events
+class Event
 {
     private $conn;
     private $table_name = "events";
@@ -104,17 +104,16 @@ class Events
     }
 
     // metoda do usuwania wydarzenia
-    function delete()
+    function delete($id)
     {
         // zapytanie do usunięcia rekordu
-        $query = "DELETE FROM " . $this->table_name . " WHERE id=:id";
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
 
         // przygotowanie zapytania
         $stmt = $this->conn->prepare($query);
 
-        // oczyszczenie i powiązanie wartości id
-        $this->id = htmlspecialchars(strip_tags($this->id));
-        $stmt->bindParam(":id", $this->id);
+        // powiązanie wartości id
+        $stmt->bindParam(":id", $id);
 
         // wykonanie zapytania
         if ($stmt->execute()) {
@@ -123,6 +122,7 @@ class Events
 
         return false;
     }
+
 
     public function search($searchTerm)
     {

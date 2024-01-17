@@ -8,7 +8,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 // Tworzenie obiektu Events
-$event = new Events($db);
+$event = new Event($db);
 
 // Sprawdzenie, czy formularz został przesłany
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

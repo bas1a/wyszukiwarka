@@ -15,6 +15,38 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-warning m-1">Edytuj</button>
+                <a href='#' data-id='<?php echo $row['id']; ?>' class='btn btn-danger delete-btn'>Usuń</a>
+            </div>
         </div>
     <?php endwhile; ?>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js" integrity="sha256-IW9RTty6djbi3+dyypxajC14pE6ZrP53DLfY9w40Xn4=" crossorigin="anonymous"></script>
+
+<script>
+    // Zapytanie potwierdzające usunięcie wydarzenia
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const eventId = this.getAttribute('data-id');
+
+            // Wyświetlenie okna dialogowego pytającego o potwierdzenie usunięcia
+            Swal.fire({
+                title: "Jesteś pewien?",
+                text: "Tej operacji nie można cofnąć.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Tak, usuń wydarzenie",
+                cancelButtonText: "Anuluj"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../controllers/event_delete_controller.php?id=' + eventId;
+                }
+            });
+        });
+    });
+</script>

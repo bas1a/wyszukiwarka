@@ -5,7 +5,7 @@ require_once '../models/event.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$event = new Events($db);
+$event = new Event($db);
 $events = $event->readByType('opera');
 ?>
 

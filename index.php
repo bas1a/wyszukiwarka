@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -35,6 +39,19 @@
                         </div>
                     <?php endif; ?>
 
+                    <?php
+                    if (isset($_SESSION['error_message'])) {
+                        echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+                        // Usunięcie komunikatu po wyświetleniu
+                        unset($_SESSION['error_message']);
+                    }
+                    if (isset($_SESSION['success_message'])) {
+                        echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+                        // Usunięcie komunikatu po wyświetleniu
+                        unset($_SESSION['success_message']);
+                    }
+                    ?>
+
                     <h4 class="text-center"> Odkryj serce kultury! &hearts; Zanurz się w bogactwie wydarzeń artystycznych!</h4>
                     <br>
                     <form action="index.php" method="get">
@@ -64,27 +81,36 @@
                             $database = new Database();
                             $db = $database->getConnection();
 
-                            $event = new Events($db);
+                            $event = new Event($db);
 
                             $results = $event->search($searchTerm);
 
-                            while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-                                echo '<div class="card my-4">';
-                                echo '<div class="row g-0">';
-                                echo '<div class="col-md-4">';
-                                if (!empty($row['image_url'])) {
-                                    echo '<img src="' . htmlspecialchars($row['image_url']) . '" class="img-fluid rounded-start" alt="Zdjęcie wydarzenia">';
+                            if ($results->rowCount() > 0) {
+                                while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+                                    $id = $row['id'];
+                                    echo '<div class="card my-4">';
+                                    echo '<div class="row g-0">';
+                                    echo '<div class="col-md-4">';
+                                    if (!empty($row['image_url'])) {
+                                        echo '<img src="' . htmlspecialchars($row['image_url']) . '" class="img-fluid rounded-start" alt="Zdjęcie wydarzenia">';
+                                    }
+                                    echo '</div>';
+                                    echo '<div class="col-md-8">';
+                                    echo '<div class="card-body">';
+                                    echo '<h4 class="card-title">' . htmlspecialchars_decode($row['name']) . '</h4>';
+                                    echo '<h6 class="card-subtitle mb-2 text-muted">' . htmlspecialchars($row['date']) . '</h6>';
+                                    echo '<p class="card-text">' . htmlspecialchars_decode($row['description']) . '</p>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '<div class="card-footer">';
+                                    echo '<button type="submit" class="btn btn-warning m-1">Edytuj</button>';
+                                    echo "<a href='#' data-id='{$id}' class='btn btn-danger delete-btn'>Usuń</a>";
+                                    echo '</div>';
+                                    echo '</div>';
                                 }
-                                echo '</div>';
-                                echo '<div class="col-md-8">';
-                                echo '<div class="card-body">';
-                                echo '<h4 class="card-title">' . htmlspecialchars_decode($row['name']) . '</h4>';
-                                echo '<h6 class="card-subtitle mb-2 text-muted">' . htmlspecialchars($row['date']) . '</h6>';
-                                echo '<p class="card-text">' . htmlspecialchars_decode($row['description']) . '</p>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '</div>';
+                            } else {
+                                echo '<div class="alert alert-warning my-3" role="alert">Nie znaleziono wydarzeń.</div>';
                             }
                         }
                     } else {
@@ -108,7 +134,33 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js" integrity="sha256-IW9RTty6djbi3+dyypxajC14pE6ZrP53DLfY9w40Xn4=" crossorigin="anonymous"></script>
 
+    <script>
+        // Zapytanie potwierdzające usunięcie wydarzenia
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const eventId = this.getAttribute('data-id');
+
+                // Wyświetlenie okna dialogowego pytającego o potwierdzenie usunięcia
+                Swal.fire({
+                    title: "Jesteś pewien?",
+                    text: "Tej operacji nie można cofnąć.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Tak, usuń wydarzenie",
+                    cancelButtonText: "Anuluj"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'app/controllers/event_delete_controller.php?id=' + eventId;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
