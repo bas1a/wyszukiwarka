@@ -27,6 +27,7 @@ body {
 
 main {
     flex: 1;
+    margin-top: 6rem;
 }
 
 .bi-music-note-beamed,
@@ -47,7 +48,7 @@ nav,
 .artists,
 .filters {
     background: linear-gradient(to top, rgba(255, 40, 40, 0), rgba(255, 0, 0, 0.5));
-    /* Półprzezroczysta czarna nakładka */
+    border-radius: 0.5rem;
 }
 
 @media (max-width: 767px) {

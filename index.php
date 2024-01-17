@@ -22,13 +22,13 @@ session_start();
 <body>
     <header>
         <?php include 'app/views/shared_navbar.php'; ?>
-        <h1 class="text-center">Wyszukiwarka koncertów i wydarzeń</h1>
     </header>
     <main>
         <div class="container">
-            <div class="row justify-content-center mt-5">
+            <div class="row justify-content-center mt-3">
                 <?php include 'app/views/shared_filter_events.php'; ?>
                 <div class="col-sm-6 p-3">
+                    <h1 class="text-center">Wyszukiwarka koncertów i wydarzeń</h1>
                     <?php if (isset($_GET['status']) && $_GET['status'] == 'success') : ?>
                         <div class="alert alert-success" role="alert">
                             Wydarzenie zostało pomyślnie dodane!
@@ -36,6 +36,10 @@ session_start();
                     <?php elseif (isset($_GET['status']) && $_GET['status'] == 'error') : ?>
                         <div class="alert alert-danger" role="alert">
                             Wystąpił błąd podczas dodawania wydarzenia.
+                        </div>
+                    <?php elseif (isset($_GET['status']) && $_GET['status'] == 'login_success') : ?>
+                        <div class="alert alert-success" role="alert">
+                            Pomyślnie zalogowano!
                         </div>
                     <?php endif; ?>
 
@@ -104,8 +108,11 @@ session_start();
                                     echo '</div>';
                                     echo '</div>';
                                     echo '<div class="card-footer">';
-                                    echo '<button type="submit" class="btn btn-warning m-1">Edytuj</button>';
-                                    echo "<a href='#' data-id='{$id}' class='btn btn-danger delete-btn'>Usuń</a>";
+                                    echo 'Wydarzenie dodane przez:' . htmlspecialchars($row['first_name']) . ' ' . htmlspecialchars($row['last_name']) . '</p>';
+                                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['role'] == 'administrator') :
+                                        echo "<a href='app/views/view_update_event.php?id=" . $row['id'] . "' class='btn btn-warning m-1'>Edytuj</a>";
+                                        echo "<a href='#' data-id='{$row['id']}' class='btn btn-danger delete-btn'>Usuń</a>";
+                                    endif;
                                     echo '</div>';
                                     echo '</div>';
                                 }

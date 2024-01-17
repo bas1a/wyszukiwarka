@@ -16,8 +16,11 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href='view_update_event.php?id=<?php echo $row['id']; ?>' class='btn btn-warning m-1'>Edytuj</a>
-                <a href='#' data-id='<?php echo $row['id']; ?>' class='btn btn-danger delete-btn'>Usuń</a>
+                <p>Wydarzenie dodane przez: <?php echo htmlspecialchars($row['first_name']) . ' ' . htmlspecialchars($row['last_name']); ?></p>
+                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) : ?>
+                    <a href='view_update_event.php?id=<?php echo $row['id']; ?>' class='btn btn-warning m-1'>Edytuj</a>
+                    <a href='#' data-id='<?php echo $row['id']; ?>' class='btn btn-danger delete-btn'>Usuń</a>
+                <?php endif; ?>
             </div>
         </div>
     <?php endwhile; ?>

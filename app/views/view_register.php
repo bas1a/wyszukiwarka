@@ -40,16 +40,16 @@ if (isset($viewData)) {
 <body>
     <header>
         <?php include 'shared_navbar.php'; ?>
-        <h1 class="text-center">Zarejestruj się</h1>
     </header>
     <main>
         <div class="container">
             <div class="row justify-content-center">
                 <?php include 'shared_filter_events.php'; ?>
                 <div class="col-sm-6 px-3">
+                    <h1 class="text-center">Zarejestruj się</h1>
                     <div class="card my-5">
                         <div class="card-body">
-                            <h2 class="card-title text-center mb-4">Formularz rejestracji</h2>
+                            <h3 class="card-title text-center mb-4">Formularz rejestracji</h3>
                             <form action="../controllers/user_register_controller.php" method="post">
                                 <div class="form-group mb-3">
                                     <label class="form-label">Imię</label>

@@ -1,4 +1,6 @@
 <?php
+session_start(); // Upewnij się, że sesja została rozpoczęta
+
 // Dołączenie pliku konfiguracyjnego bazy danych oraz klasy Events
 require_once '../../config/database.php';
 require_once '../models/event.php';
@@ -19,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $event->description = $_POST['description'];
     $event->type = $_POST['type'];
     $event->image_url = $_POST['image_url'];
+    $event->user_id = $_SESSION['user_id']; // Przypisanie ID zalogowanego użytkownika
 
     // Próba dodania wydarzenia
     if ($event->create()) {
@@ -30,5 +33,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../../index.php?status=error");
         exit();
     }
-
 }

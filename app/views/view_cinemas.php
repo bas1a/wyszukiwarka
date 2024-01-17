@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../../config/database.php';
 require_once '../models/event.php';
 
@@ -30,10 +31,9 @@ $events = $event->readByType('kino');
 <body>
     <header>
         <?php include 'shared_navbar.php'; ?>
-        <h1 class="text-center">Kino</h1>
     </header>
     <main>
-        <div class="container mt-5">
+        <div class="container mt-3">
             <div class="row justify-content-center">
                 <?php include 'shared_filter_events.php'; ?>
                 <?php include 'shared_event_card.php'; ?>

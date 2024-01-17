@@ -49,11 +49,11 @@ class User
         }
     }
 
-    // Funkcja, która logiuje pacjenta
+    // Funkcja, która logiuje użytkownika
     public function login($email, $password)
     {
-        // Zapytanie SQL do pobrania informacji o pacjentach na podstawie emaila
-        $query = "SELECT patient_id, first_name, last_name, email, password, role FROM " . $this->table_name . " WHERE email = :email";
+        // Zapytanie SQL do pobrania informacji o użytkownikach na podstawie emaila
+        $query = "SELECT user_id, first_name, last_name, email, password, role FROM " . $this->table_name . " WHERE email = :email";
 
         // Przygotowanie zapytania
         $stmt = $this->db->prepare($query);
@@ -69,7 +69,7 @@ class User
             $row = $stmt->fetch(PDO::FETCH_ASSOC); // Pobranie wiersza z bazy danych i zapisanie go w tablicy asocjacyjnej
 
             // Przypisanie wartości do zmiennych
-            $patient_id = $row['patient_id'];
+            $user_id = $row['user_id'];
             $hashed_password = $row['password'];
             $first_name = $row['first_name'];
             $last_name = $row['last_name'];
@@ -78,7 +78,7 @@ class User
             // Sprawdzenie, czy hasło jest prawidłowe i przypisanie wartości do zmiennych sesji
             if (password_verify($password, $hashed_password)) {
                 $_SESSION["loggedin"] = true;
-                $_SESSION["user_id"] = $patient_id;
+                $_SESSION["user_id"] = $user_id;
                 $_SESSION["email"] = $email;
                 $_SESSION["first_name"] = $first_name;
                 $_SESSION["last_name"] = $last_name;

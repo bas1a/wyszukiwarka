@@ -22,25 +22,17 @@ class Event
         $this->conn = $db;
     }
 
-    // metoda do odczytu wydarzeń
-    function read()
-    {
-        // zapytanie do bazy
-        $query = "SELECT * FROM " . $this->table_name;
-
-        // przygotowanie zapytania
-        $stmt = $this->conn->prepare($query);
-
-        // wykonanie zapytania
-        $stmt->execute();
-
-        return $stmt;
-    }
-
     // metoda do odczytu wydarzeń po typie
     public function readByType($type)
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE type = :type";
+        $query = "SELECT 
+                events.*, 
+                users.first_name, 
+                users.last_name, 
+                users.email 
+              FROM " . $this->table_name . " 
+              JOIN users ON events.user_id = users.user_id
+              WHERE type = :type";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":type", $type);
@@ -48,6 +40,7 @@ class Event
 
         return $stmt;
     }
+
 
     public function readOne($id)
     {
@@ -74,8 +67,9 @@ class Event
     function create()
     {
         // zapytanie do wstawienia rekordu
-        $query = "INSERT INTO " . $this->table_name . " (name, location, date, description, type, image_url) VALUES (:name, :location, :date, :description, :type, :image_url)";
-
+        $query = "INSERT INTO " . $this->table_name . " 
+              (name, location, date, description, type, image_url, user_id) 
+              VALUES (:name, :location, :date, :description, :type, :image_url, :user_id)";
 
         // przygotowanie zapytania
         $stmt = $this->conn->prepare($query);
@@ -86,6 +80,7 @@ class Event
         $this->date = htmlspecialchars(strip_tags($this->date));
         $this->description = htmlspecialchars(strip_tags($this->description));
         $this->type = htmlspecialchars(strip_tags($this->type));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id)); // Dodane
 
         // powiązanie wartości
         $stmt->bindParam(":name", $this->name);
@@ -94,6 +89,7 @@ class Event
         $stmt->bindParam(":description", $this->description);
         $stmt->bindParam(":type", $this->type);
         $stmt->bindParam(":image_url", $this->image_url);
+        $stmt->bindParam(":user_id", $this->user_id); // Dodane
 
         // wykonanie zapytania
         if ($stmt->execute()) {
@@ -102,7 +98,6 @@ class Event
 
         return false;
     }
-
 
     // metoda do aktualizacji wydarzenia
     function update($id, $name, $location, $date, $description, $image_url, $type)
