@@ -153,14 +153,22 @@ class Event
 
     public function search($searchTerm)
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE :searchTerm OR description LIKE :searchTerm";
+        $query = "SELECT 
+                events.*, 
+                users.first_name, 
+                users.last_name, 
+                users.email 
+              FROM " . $this->table_name . " 
+              JOIN users ON events.user_id = users.user_id 
+              WHERE events.name LIKE :searchTerm OR events.description LIKE :searchTerm";
 
         $stmt = $this->conn->prepare($query);
         $searchTerm = "%{$searchTerm}%";
         $stmt->bindParam(":searchTerm", $searchTerm);
-   
+
         $stmt->execute();
 
         return $stmt;
     }
+
 }

@@ -108,7 +108,7 @@ session_start();
                                     echo '</div>';
                                     echo '</div>';
                                     echo '<div class="card-footer">';
-                                    echo 'Wydarzenie dodane przez:' . htmlspecialchars($row['first_name']) . ' ' . htmlspecialchars($row['last_name']) . '</p>';
+                                    echo 'Wydarzenie dodane przez: ' . htmlspecialchars($row['first_name']) . ' ' . htmlspecialchars($row['last_name']) . '</p>';
                                     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['role'] == 'administrator') :
                                         echo "<a href='app/views/view_update_event.php?id=" . $row['id'] . "' class='btn btn-warning m-1'>Edytuj</a>";
                                         echo "<a href='#' data-id='{$row['id']}' class='btn btn-danger delete-btn'>Usuń</a>";
